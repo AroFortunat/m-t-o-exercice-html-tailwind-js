@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>App Météo — Moderne (Tailwind, sans JS)</title>
+  <!-- Tailwind CSS (precompiled) - demo only. In production, compile with your config. -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    /* Small extra polish without JS */
+    :root{
+      --glass-bg: rgba(255,255,255,0.06);
+      --glass-border: rgba(255,255,255,0.08);
+    }
+    .glass {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(6px);
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-indigo-900 via-sky-900 to-slate-800 text-slate-100 antialiased">
+
+  <!-- Wrapper -->
+  <div class="max-w-5xl mx-auto px-6 py-10">
+
+    <!-- Header -->
+    <header class="flex items-center justify-between mb-8">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-lg glass flex items-center justify-center">
+          <!-- simple cloud/sun svg icon -->
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M6 14a4 4 0 010-8 5 5 0 019.9 1.2A3.5 3.5 0 0119 11.5" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="17" cy="7" r="2" fill="white" opacity="0.9"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-2xl font-semibold">Météo</h1>
+          <p class="text-sm text-slate-300">Affichage moderne — sans JavaScript</p>
+        </div>
+      </div>
+
+      <!-- Search form (GET) - works with server-side or static query handling -->
+      <form method="get" action="/" class="flex items-center gap-2">
+        <label for="city" class="sr-only">Ville</label>
+        <input id="city" name="city" type="text" placeholder="Entrez une ville" class="px-3 py-2 rounded-lg bg-slate-700/50 border border-slate-600 placeholder-slate-400 text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-400" />
+        <button type="submit" class="px-3 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-900 font-semibold">Rechercher</button>
+      </form>
+    </header>
+
+    <!-- Main content: two-column on large screens -->
+    <main class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- Left: Current weather card (large) -->
+      <section class="lg:col-span-2 glass rounded-2xl p-6 shadow-xl">
+        <!-- Replace static content with server-side values or template variables -->
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-3xl font-bold">Antananarivo</h2>
+            <p class="text-sm text-slate-300">Jeudi, 28 février 2026 • Mis à jour — 08:30</p>
+          </div>
+          <div class="text-right">
+            <p class="text-6xl font-extrabold leading-none">26<span class="text-2xl">°C</span></p>
+            <p class="text-sm text-slate-300">Ensoleillé</p>
+          </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="flex items-center gap-3">
+            <!-- large icon -->
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M3 13a4 4 0 014-4h1" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="12" cy="8" r="3" fill="gold" opacity="0.95"/>
+            </svg>
+            <div>
+              <p class="text-sm text-slate-300">Ressenti</p>
+              <p class="font-medium">28°C</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M3 12h18" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M6 16h.01" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+            <div>
+              <p class="text-sm text-slate-300">Humidité</p>
+              <p class="font-medium">58%</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M3 12h18M6 8l4 4-4 4" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div>
+              <p class="text-sm text-slate-300">Vent</p>
+              <p class="font-medium">13 km/h</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Forecast strip (static) -->
+        <div class="mt-6 overflow-x-auto">
+          <ul class="flex gap-4 min-w-max">
+            <!-- Repeatable forecast item -->
+            <li class="flex-none w-28 bg-slate-800/40 rounded-xl p-3 text-center">
+              <p class="text-sm text-slate-300">08h</p>
+              <p class="mt-2 text-lg font-semibold">25°</p>
+              <p class="text-xs text-slate-400">☀️</p>
+            </li>
+            <li class="flex-none w-28 bg-slate-800/40 rounded-xl p-3 text-center">
+              <p class="text-sm text-slate-300">11h</p>
+              <p class="mt-2 text-lg font-semibold">28°</p>
+              <p class="text-xs text-slate-400">☀️</p>
+            </li>
+            <li class="flex-none w-28 bg-slate-800/40 rounded-xl p-3 text-center">
+              <p class="text-sm text-slate-300">14h</p>
+              <p class="mt-2 text-lg font-semibold">30°</p>
+              <p class="text-xs text-slate-400">⛅</p>
+            </li>
+            <li class="flex-none w-28 bg-slate-800/40 rounded-xl p-3 text-center">
+              <p class="text-sm text-slate-300">17h</p>
+              <p class="mt-2 text-lg font-semibold">27°</p>
+              <p class="text-xs text-slate-400">🌦️</p>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Details using <details> for expand/collapse without JS -->
+        <div class="mt-6">
+          <details class="open:bg-slate-800/30 rounded-lg p-3">
+            <summary class="cursor-pointer list-none text-sm text-slate-300">Plus de détails</summary>
+            <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="p-3 bg-slate-800/40 rounded-xl">
+                <p class="text-xs text-slate-400">Lever / Coucher</p>
+                <p class="font-medium">06:01 / 18:02</p>
+              </div>
+              <div class="p-3 bg-slate-800/40 rounded-xl">
+                <p class="text-xs text-slate-400">Pression</p>
+                <p class="font-medium">1013 hPa</p>
+              </div>
+              <div class="p-3 bg-slate-800/40 rounded-xl">
+                <p class="text-xs text-slate-400">Précipitations (24h)</p>
+                <p class="font-medium">0 mm</p>
+              </div>
+              <div class="p-3 bg-slate-800/40 rounded-xl">
+                <p class="text-xs text-slate-400">Indice UV</p>
+                <p class="font-medium">6 (modéré)</p>
+              </div>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- Right: Week forecast / additional info -->
+      <aside class="glass rounded-2xl p-6 shadow-lg">
+        <h3 class="text-lg font-semibold mb-4">Prévisions — 7 jours</h3>
+        <ul class="space-y-3">
+          <li class="flex items-center justify-between p-3 bg-slate-800/30 rounded-lg">
+            <div>
+              <p class="text-sm">Ven</p>
+              <p class="text-xs text-slate-400">22 Feb</p>
+            </div>
+            <div class="text-right">
+              <p class="font-medium">29° / 20°</p>
+              <p class="text-xs text-slate-400">☀️</p>
+            </div>
+          </li>
+          <li class="flex items-center justify-between p-3 bg-slate-800/30 rounded-lg">
+            <div>
+              <p class="text-sm">Sam</p>
+              <p class="text-xs text-slate-400">23 Feb</p>
+            </div>
+            <div class="text-right">
+              <p class="font-medium">28° / 19°</p>
+              <p class="text-xs text-slate-400">⛅</p>
+            </div>
+          </li>
+
+          <!-- add more items as needed -->
+        </ul>
+
+        <hr class="my-5 border-slate-700/40" />
+        <div class="text-sm text-slate-300">
+          <p>Source: remplacez par votre API (OpenWeatherMap, MeteoFrance, etc.)</p>
+          <p class="mt-2">Conseil: pour rendre l'application dynamique sans JavaScript côté client, utilisez un rendu côté serveur (SSR) ou des templates côté backend pour injecter les valeurs.</p>
+        </div>
+      </aside>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-10 text-center text-slate-400 text-sm">
+      <p>Prototype — TailwindCSS • Sans JavaScript</p>
+    </footer>
+
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
